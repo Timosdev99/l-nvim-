@@ -88,3 +88,15 @@ vim.keymap.set("n", "<Space><Space>", "]]", { desc = "Jump to end of function/bl
 -- Use <Space><Tab> (Space + Tab) to jump to the beginning of the current function or code block.
 -- This uses the '[[' motion, which jumps to the previous '{' or '(' in the first column.
 vim.keymap.set("n", "<Space><Tab>", "[[", { desc = "Jump to start of function/block" })
+
+-- Cycle through colorschemes
+local colorschemes = { "tokyonight", "habamax", "gruvbox" }
+local current_colorscheme_index = 1
+
+vim.keymap.set("n", "<leader>uC", function()
+  current_colorscheme_index = current_colorscheme_index + 1
+  if current_colorscheme_index > #colorschemes then
+    current_colorscheme_index = 1
+  end
+  vim.cmd("colorscheme " .. colorschemes[current_colorscheme_index])
+end, { desc = "Cycle through colorschemes" })
