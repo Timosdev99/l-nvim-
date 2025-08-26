@@ -29,7 +29,7 @@ vim.keymap.set("n", "<M-Down>", "v<Down>", { desc = "Highlight down" })
 -- Shift + Space: Jump to the end of the current line
 -- This is a common and practical interpretation for "jump to end of sentence"
 -- when the sentence is on a single line.
-vim.keymap.set("n", "<Space>", "$", { desc = "Jump to end of line/sentence" })
+vim.keymap.set("n", "<leader>", "$", { desc = "Jump to end of line/sentence" })
 
 -- Shift + Alt + Space: Jump to the end of the current word
 -- This uses the standard 'e' motion to move to the end of the current word.
@@ -87,16 +87,18 @@ vim.keymap.set("n", "<Space><Space>", "]]", { desc = "Jump to end of function/bl
 -- Jump to Start of Function/Block
 -- Use <Space><Tab> (Space + Tab) to jump to the beginning of the current function or code block.
 -- This uses the '[[' motion, which jumps to the previous '{' or '(' in the first column.
-vim.keymap.set("n", "<Space><Tab>", "[[", { desc = "Jump to start of function/block" })
+vim.keymap.set("n", "<leader><Tab>", "[[", { desc = "Jump to start of function/block" })
 
 -- Cycle through colorschemes
 local colorschemes = { "tokyonight", "habamax", "gruvbox" }
-local current_colorscheme_index = 1
+if not vim.g.current_colorscheme_index then
+  vim.g.current_colorscheme_index = 1
+end
 
-vim.keymap.set("n", "<leader>uC", function()
-  current_colorscheme_index = current_colorscheme_index + 1
-  if current_colorscheme_index > #colorschemes then
-    current_colorscheme_index = 1
+vim.keymap.set("n", "<leader>T", function()
+  vim.g.current_colorscheme_index = vim.g.current_colorscheme_index + 1
+  if vim.g.current_colorscheme_index > #colorschemes then
+    vim.g.current_colorscheme_index = 1
   end
-  vim.cmd("colorscheme " .. colorschemes[current_colorscheme_index])
+  vim.cmd("colorscheme " .. colorschemes[vim.g.current_colorscheme_index])
 end, { desc = "Cycle through colorschemes" })
